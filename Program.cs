@@ -16,7 +16,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-//�ۭqContext
+//�ۭqContext
 builder.Services.AddDbContext<NetTestContext>(options =>
 {
 	options.UseSqlServer(connectionString);
