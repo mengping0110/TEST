@@ -1,0 +1,115 @@
+﻿@model TEST.Models.Member
+
+@{
+    ViewData["Title"] = "刪除確認 - " + Model?.NAME;
+}
+
+<style>
+    .page-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .table-label {
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: #f8f9fa;
+        width: 25%;
+    }
+
+    .delete-warning {
+        font-size: 1.25rem;
+        color: #dc3545;
+        font-weight: bold;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .accesskey {
+        color: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-decoration: none;
+    }
+</style>
+
+<a href="#C" id="AC" name="C" title="中央內容區" accesskey="C" class="accesskey">:::</a>
+
+<main class="container mt-4" id="main-content">
+    <div class="row align-items-center mb-4">
+        <div class="col-md-6">
+            <h1 class="page-title text-danger">刪除會員確認</h1>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a href="@Url.Action("List", "Home")" class="btn btn-outline-secondary" role="button" title="返回會員清單">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                <span class="sr-only">返回圖示</span> 返回清單
+            </a>
+        </div>
+    </div>
+
+    <div class="alert alert-warning d-flex align-items-center" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2" aria-hidden="true"></i>
+        <span class="delete-warning">您確定要刪除此筆資料嗎？此操作將無法復原。</span>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-5">
+        <div class="card-header bg-danger text-white">
+            <h2 class="h5 mb-0">待刪除資料細節</h2>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle mb-0">
+                <caption class="sr-only">待刪除會員詳細資料表</caption>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="table-light text-end" style="width: 25%;">@Html.DisplayNameFor(model => model.Pid)</th>
+                        <td>@Html.DisplayFor(model => model.Pid)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="table-light text-end">@Html.DisplayNameFor(model => model.NAME)</th>
+                        <td class="fw-bold">@Html.DisplayFor(model => model.NAME)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="table-light text-end">@Html.DisplayNameFor(model => model.INFO)</th>
+                        <td><div class="text-wrap">@Html.DisplayFor(model => model.INFO)</div></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="table-light text-end">@Html.DisplayNameFor(model => model.CreateDt)</th>
+                        <td>@Model.CreateDt.ToString("yyyy/MM/dd HH:mm:ss")</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="card-footer bg-white py-4 text-center">
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="ID" />
+
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="submit" class="btn btn-danger btn-lg px-5 shadow" title="確認執行刪除資料">
+                            <i class="bi bi-trash-fill" aria-hidden="true"></i>
+                            <span class="sr-only">刪除圖示</span> 確認刪除
+                        </button>
+
+                        <a href="@Url.Action("List", "Home")"
+                           class="btn btn-light btn-lg px-5 border"
+                           role="button"
+                           title="取消刪除並返回清單">
+                            取消
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

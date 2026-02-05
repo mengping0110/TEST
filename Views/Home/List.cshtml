@@ -1,0 +1,111 @@
+﻿@model IEnumerable<TEST.Models.Member>
+
+@{
+    ViewData["Title"] = "會員清單";
+}
+
+<style>
+    .custom-table-title { font-size: 1.5rem; }
+    .btn-text { font-size: 1rem; }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .accesskey {
+        color: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+</style>
+
+<a href="#C" id="AC" name="C" title="中央內容區" accesskey="C" class="accesskey">:::</a>
+
+<main class="container mt-4">
+    <h1 class="custom-table-title">會員管理系統</h1>
+
+    <section aria-labelledby="member-list-heading">
+        <h2 id="member-list-heading" class="h4 mb-3">會員資料清單</h2>
+
+        <div class="mb-3">
+            <a href="@Url.Action("Create", "Home")"
+               class="btn btn-primary"
+               role="button"
+               title="前往新增會員頁面">
+                <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                <span class="sr-only">新增圖示</span>
+                新增會員
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered border-dark align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" style="width: 10%;">@Html.DisplayNameFor(model => model.Pid)</th>
+                        <th scope="col" style="width: 20%;">@Html.DisplayNameFor(model => model.NAME)</th>
+                        <th scope="col" style="width: 40%;">@Html.DisplayNameFor(model => model.INFO)</th>
+                        <th scope="col" style="width: 15%;">@Html.DisplayNameFor(model => model.CreateDt)</th>
+                        <th scope="col" style="width: 15%;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Pid)</td>
+                            <th scope="row">@Html.DisplayFor(modelItem => item.NAME)</th>
+                            <td>
+                                <div class="text-wrap">@Html.DisplayFor(modelItem => item.INFO)</div>
+                            </td>
+                            <td>@item.CreateDt.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                <nav aria-label="@item.NAME 的管理選項">
+                                    <nav aria-label="@item.NAME 的管理選項">
+                                        <a href="@Url.Action("Edit", "Home", new { id = item.Pid })"
+                                           class="btn btn-sm btn-outline-secondary mb-1"
+                                           role="button"
+                                           title="編輯 - @item.NAME (跳轉至編輯頁面)"
+                                           tabindex="0">
+                                            <i class="bi bi-pencil" aria-hidden="true"></i>
+                                            <span class="sr-only">編輯圖示</span>編輯
+                                        </a>
+
+                                        <a href="@Url.Action("Details", "Home", new { id = item.Pid })"
+                                           class="btn btn-sm btn-outline-info mb-1"
+                                           role="button"
+                                           title="詳細資料 - @item.NAME (跳轉至詳細資料頁面)"
+                                           tabindex="0">
+                                            <i class="bi bi-info-circle" aria-hidden="true"></i>
+                                            <span class="sr-only">詳情圖示</span>詳情
+                                        </a>
+
+                                        <a href="@Url.Action("Delete", "Home", new { id = item.Pid })"
+                                           class="btn btn-sm btn-outline-danger mb-1"
+                                           role="button"
+                                           title="刪除 - @item.NAME (確認後執行刪除)"
+                                           tabindex="0"
+                                           onclick="return confirm('您確定要刪除會員「@item.NAME」嗎？');">
+                                            <i class="bi bi-trash" aria-hidden="true"></i>
+                                            <span class="sr-only">刪除圖示</span>刪除
+                                        </a>
+                                    </nav>
+                                </nav>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+

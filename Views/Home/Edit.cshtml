@@ -1,0 +1,119 @@
+﻿@model TEST.Models.Member
+
+@{
+    ViewData["Title"] = "編輯會員資料 - " + Model?.NAME;
+}
+
+<style>
+    .page-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .table-label {
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: #f8f9fa;
+        width: 25%;
+    }
+
+    .required-star {
+        color: #d93025;
+        margin-left: 0.25rem;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .accesskey {
+        color: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-decoration: none;
+    }
+</style>
+
+<a href="#C" id="AC" name="C" title="中央內容區" accesskey="C" class="accesskey">:::</a>
+
+<main class="container mt-4" id="main-content">
+    <div class="row align-items-center mb-4">
+        <div class="col-md-6">
+            <h1 class="page-title">編輯會員資料</h1>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a href="@Url.Action("List", "Home")" class="btn btn-outline-secondary" role="button" title="返回會員清單">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                <span class="sr-only">返回圖示</span> 返回清單
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-5">
+        <div class="card-header bg-light text-black">
+            <h2 class="h5 mb-0">修改資料內容</h2>
+        </div>
+        <div class="table-responsive">
+            <form asp-action="Edit" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger m-3" role="alert"></div>
+                <input type="hidden" asp-for="ID" />
+                <input type="hidden" asp-for="Pid" />
+
+                <table class="table table-bordered align-middle mb-0">
+                    <caption class="sr-only">會員編輯表單</caption>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="table-light text-end" style="width: 25%;">
+                                <label for="NAME" class="form-label mb-0">
+                                    @Html.DisplayNameFor(model => model.NAME)
+                                    <span class="required-star" aria-hidden="true">*</span>
+                                    <span class="sr-only">(必填)</span>
+                                </label>
+                            </th>
+                            <td>
+                                <input asp-for="NAME" id="NAME" class="form-control" placeholder="請輸入姓名" aria-required="true" />
+                                <span asp-validation-for="NAME" class="text-danger small"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="table-light text-end">
+                                <label for="INFO" class="form-label mb-0">
+                                    @Html.DisplayNameFor(model => model.INFO)
+                                </label>
+                            </th>
+                            <td>
+                                <textarea asp-for="INFO" id="INFO" class="form-control" rows="4" placeholder="請輸入自我介紹">@Model.INFO</textarea>
+                                <span asp-validation-for="INFO" class="text-danger small"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="card-footer bg-white py-4">
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="submit" class="btn btn-primary btn-lg px-5 shadow" title="確認儲存修改內容">
+                            <i class="bi bi-save" aria-hidden="true"></i>
+                            <span class="sr-only">儲存圖示</span> 儲存修改
+                        </button>
+
+                        <a href="@Url.Action("List", "Home")"
+                           class="btn btn-light btn-lg px-5 border"
+                           role="button"
+                           title="取消編輯並返回清單">
+                            取消
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
