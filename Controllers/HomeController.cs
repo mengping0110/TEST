@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authorization;
@@ -40,7 +41,7 @@ namespace TEST.Controllers
 		}
 
 
-		public IActionResult Details(int? id)
+		public IActionResult Details(Guid id)
 		{
             if (id == null)
             {
@@ -77,7 +78,7 @@ namespace TEST.Controllers
 		}
 
 
-		public IActionResult Edit(int? id)
+		public IActionResult Edit(Guid? id)
 		{
 			if (id == null)
 			{
@@ -106,7 +107,7 @@ namespace TEST.Controllers
 
             if (ModelState.IsValid)
             {
-                var memberEdit = _MemberBL.GetMember(member.Pid);
+                var memberEdit = _MemberBL.GetMember(member.ID);
                 if (memberEdit == null)
                 {
                     return NotFound();
@@ -126,7 +127,7 @@ namespace TEST.Controllers
         }
 
 
-		public IActionResult Delete(int? id)
+		public IActionResult Delete(Guid? id)
 		{
 			if (id == null)
 			{
@@ -146,7 +147,7 @@ namespace TEST.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirm(int? id)
+        public IActionResult DeleteConfirm(Guid? id)
         {
             if (ModelState.IsValid)
             {

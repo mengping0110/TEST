@@ -17,9 +17,9 @@ namespace TEST.Services
 			return _context.Member.OrderBy(x => x.Pid).ToList();
 		}
 
-		public Member GetMember(int? pid) 
+		public Member GetMember(Guid? id) 
 		{ 
-			var member = _context.Member.FirstOrDefault(x => x.Pid == pid);
+			var member = _context.Member.FirstOrDefault(x => x.ID == id);
 			return member;
 		}
 
