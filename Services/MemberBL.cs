@@ -26,10 +26,6 @@ namespace TEST.Services
 		public Member AddMember(Member member) 
 		{
 			member.ID = Guid.NewGuid();
-
-			int maxPid = _context.Member.Any() ? _context.Member.Max(m => m.Pid) : 0;
-			member.Pid = maxPid + 1;
-
 			member.CreateDt = DateTime.Now;
 
 			var newMember = _context.Member.Add(member).Entity;

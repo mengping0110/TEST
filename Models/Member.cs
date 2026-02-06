@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TEST.Models;
 
@@ -11,6 +12,7 @@ public partial class Member
     public Guid ID { get; set; }
 
 	[Display(Name = "ID")]
+	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int Pid { get; set; }
 
 	[Display(Name = "姓名")]
