@@ -65,8 +65,9 @@
         <div class="table-responsive">
             <form asp-action="Edit" method="post">
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger m-3" role="alert"></div>
-                <input type="hidden" asp-for="ID" />
-                <input type="hidden" asp-for="Pid" />
+                <input type="hidden" name="ID" value="@Model.ID" />
+                <input type="hidden" name="Pid" value="@Model.Pid" />
+                <input type="hidden" name="CreateDt" value="@Model.CreateDt" />
 
                 <table class="table table-bordered align-middle mb-0">
                     <caption class="sr-only">會員編輯表單</caption>

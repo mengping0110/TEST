@@ -39,15 +39,13 @@ namespace TEST.Services
 
 		public Member UpdateMember(Member member) 
 		{
-			var menberEdit = _context.Member.FirstOrDefault(x => x.Pid == member.Pid);
-			if (menberEdit != null)
-			{
-				menberEdit.NAME = member.NAME;
-				menberEdit.INFO = member.INFO;
-				_context.SaveChanges();
-			}
-			return menberEdit;
+
+			_context.SaveChanges();
+			
+			return member;
 		}
+
+
 
 		public Member DeleteMember(Member member) 
 		{

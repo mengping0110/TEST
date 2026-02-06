@@ -104,7 +104,7 @@ namespace TEST.Controllers
                 return BadRequest();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var memberEdit = _MemberBL.GetMember(member.Pid);
                 if (memberEdit == null)
