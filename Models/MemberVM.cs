@@ -12,6 +12,7 @@ namespace TEST.Models
 
 		[Display(Name = "姓名")]
 		[Required(ErrorMessage = "請填寫{0}")]
+		[StringLength(100)]
 		public string NAME { get; set; }
 
 		[Display(Name = "自我介紹")]
