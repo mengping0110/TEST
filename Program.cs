@@ -24,6 +24,8 @@ builder.Services.AddDbContext<NetTestContext>(options =>
 
 builder.Services.AddScoped<MemberBL>();
 
+builder.Services.AddMvc().AddRazorRuntimeCompilation();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
