@@ -1,4 +1,4 @@
-﻿@model TEST.Models.Member
+﻿@model MemberVM
 
 @{
     ViewData["Title"] = "刪除確認 - " + Model?.NAME;
@@ -93,7 +93,7 @@
 
             <div class="card-footer bg-white py-4 text-center">
                 <form asp-action="Delete" method="post">
-                    <input type="hidden" asp-for="ID" />
+                    <input type="hidden" asp-for="Id" />
 
                     <div class="d-flex justify-content-center gap-3">
                         <button type="submit" class="btn btn-danger btn-lg px-5 shadow" title="確認執行刪除資料">

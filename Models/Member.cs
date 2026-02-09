@@ -11,18 +11,12 @@ public partial class Member
 {
     public Guid ID { get; set; }
 
-	[Display(Name = "ID")]
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int Pid { get; set; }
 
-	[Display(Name = "姓名")]
-	[Required(ErrorMessage = "請填寫{0}")]
 	public string NAME { get; set; }
 
-	[Display(Name = "自我介紹")]
-	[Required(ErrorMessage = "請填寫{0}")]
 	public string INFO { get; set; }
 
-	[Display(Name = "建立日期")]
 	public DateTime CreateDt { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿@model TEST.Models.Member
+﻿@model MemberVM
 
 @{
     ViewData["Title"] = "編輯會員資料 - " + Model?.NAME;
@@ -65,7 +65,7 @@
         <div class="table-responsive">
             <form asp-action="Edit" method="post">
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger m-3" role="alert"></div>
-                <input type="hidden" name="ID" value="@Model.ID" />
+                <input type="hidden" name="ID" value="@Model.Id" />
                 <input type="hidden" name="Pid" value="@Model.Pid" />
                 <input type="hidden" name="CreateDt" value="@Model.CreateDt" />
 

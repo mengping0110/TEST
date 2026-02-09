@@ -12,42 +12,79 @@ namespace TEST.Services
 			_context = context;
 		}
 
-		public List<Member> GetMemberList()
+		public List<MemberVM> GetMemberList()
 		{
-			return _context.Member.OrderBy(x => x.Pid).ToList();
+			var members = _context.Member.OrderBy(x => x.Pid)
+			.Select(m => new MemberVM 
+			{	
+				Id = m.ID,
+				Pid = m.Pid,
+				NAME = m.NAME,
+				INFO = m.INFO,
+				CreateDt = m.CreateDt	
+			}).ToList();
+
+			return members;
 		}
 
-		public Member GetMember(Guid? id) 
-		{ 
-			var member = _context.Member.FirstOrDefault(x => x.ID == id);
+		public MemberVM GetMember(Guid? id) 
+		{
+			var member = _context.Member.Where(x => x.ID == id)
+				.Select(m => new MemberVM
+				{
+					Id = m.ID,
+					Pid = m.Pid,
+					NAME = m.NAME,
+					INFO = m.INFO,
+					CreateDt = m.CreateDt
+				}).FirstOrDefault();
 			return member;
 		}
 
-		public Member AddMember(Member member) 
+		public MemberVM AddMember(MemberVM member) 
 		{
-			member.ID = Guid.NewGuid();
-			member.CreateDt = DateTime.Now;
+			var newMember = new Member
+			{
+				ID = Guid.NewGuid(),
+				NAME = member.NAME,
+				INFO = member.INFO,
+				CreateDt = DateTime.Now
+			};
 
-			var newMember = _context.Member.Add(member).Entity;
+			_context.Member.Add(newMember);
 			_context.SaveChanges();
-			return newMember;
+			return member;
 		}
 
-		public Member UpdateMember(Member member) 
-		{
 
-			_context.SaveChanges();
+		public MemberVM UpdateMember(MemberVM member) 
+		{
+			var newMember = _context.Member.Find(member.Id);
+			if (newMember != null)
+			{
+				newMember.NAME = member.NAME;
+				newMember.INFO = member.INFO;
+
+				_context.SaveChanges();
+			}
 			
 			return member;
 		}
 
 
 
-		public Member DeleteMember(Member member) 
+		public MemberVM DeleteMember(MemberVM member) 
 		{
-			_context.Member.Remove(member);
+			var deleteMember = _context.Member.Find(member.Id);
+			if (deleteMember == null)
+			{
+				return null;
+			}
+
+			_context.Member.Remove(deleteMember);
 			_context.SaveChanges();
 			return member;
 		}
+
 	}
 }

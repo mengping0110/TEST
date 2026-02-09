@@ -67,7 +67,7 @@ namespace TEST.Controllers
 
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Member member)
+        public IActionResult Create(MemberVM member)
         {
             if (member != null && ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace TEST.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Member member)
+        public IActionResult Edit(MemberVM member)
         {
             if (member == null)
             {
@@ -107,7 +107,7 @@ namespace TEST.Controllers
 
             if (ModelState.IsValid)
             {
-                var memberEdit = _MemberBL.GetMember(member.ID);
+                var memberEdit = _MemberBL.GetMember(member.Id);
                 if (memberEdit == null)
                 {
                     return NotFound();

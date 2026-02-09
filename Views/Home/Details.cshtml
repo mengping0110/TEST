@@ -1,4 +1,4 @@
-﻿@model TEST.Models.Member
+﻿@model MemberVM
 
 @{
     ViewData["Title"] = "會員詳細資料 - " + Model?.NAME;
@@ -97,7 +97,7 @@
     <div class="mt-5 mb-5 d-flex justify-content-center align-items-center gap-3">
         <h2 class="sr-only">操作選項</h2> 
 
-        <a href="@Url.Action("Edit", "Home", new { id = Model?.ID })"
+        <a href="@Url.Action("Edit", "Home", new { id = Model?.Id })"
            class="btn btn-primary btn-lg px-5 shadow"
            role="button"
            title="編輯 - @Model?.NAME 的資料">

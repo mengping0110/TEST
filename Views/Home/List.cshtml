@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TEST.Models.Member>
+﻿@model IEnumerable<TEST.Models.MemberVM>
 
 @{
     ViewData["Title"] = "會員清單";
@@ -71,7 +71,7 @@
                             <td>
                                 <nav aria-label="@item.NAME 的管理選項">
                                     <nav aria-label="@item.NAME 的管理選項">
-                                        <a href="@Url.Action("Edit", "Home", new { id = item.ID })"
+                                        <a href="@Url.Action("Edit", "Home", new { id = item.Id })"
                                            class="btn btn-sm btn-outline-secondary mb-1"
                                            role="button"
                                            title="編輯 - @item.NAME (跳轉至編輯頁面)"
@@ -80,7 +80,7 @@
                                             <span class="sr-only">編輯圖示</span>編輯
                                         </a>
 
-                                        <a href="@Url.Action("Details", "Home", new { id = item.ID })"
+                                        <a href="@Url.Action("Details", "Home", new { id = item.Id })"
                                            class="btn btn-sm btn-outline-info mb-1"
                                            role="button"
                                            title="詳細資料 - @item.NAME (跳轉至詳細資料頁面)"
@@ -89,7 +89,7 @@
                                             <span class="sr-only">詳情圖示</span>詳情
                                         </a>
 
-                                        <a href="@Url.Action("Delete", "Home", new { id = item.ID })"
+                                        <a href="@Url.Action("Delete", "Home", new { id = item.Id })"
                                            class="btn btn-sm btn-outline-danger mb-1"
                                            role="button"
                                            title="刪除 - @item.NAME (確認後執行刪除)"
