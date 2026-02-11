@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using TEST.Models;
 using TEST.Services;
 
@@ -14,10 +15,12 @@ namespace TEST.Controllers
 	public class HomeController : Controller
     {
 		private readonly MemberBL _MemberBL;
+		private readonly IWebHostEnvironment _hostingEnvironment;
 
-		public HomeController(MemberBL MemberBL)
+		public HomeController(MemberBL MemberBL, IWebHostEnvironment hostingEnvironment)
 		{
 			_MemberBL = MemberBL;
+			_hostingEnvironment = hostingEnvironment;
 		}
 
 		[AllowAnonymous]
@@ -164,6 +167,69 @@ namespace TEST.Controllers
             }
         
         }
+
+		public IActionResult Upload()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Upload(IFormFile FileUpload_FileName) 
+		{
+			try
+			{
+				if (FileUpload_FileName != null && FileUpload_FileName.Length > 0)
+				{
+
+					// 定義黑名單 (副檔名)
+					var deniedExtensions = new[] { ".aspx", ".jpg", ".pdf" };
+					string fileName = Path.GetFileName(FileUpload_FileName.FileName);
+					string extension = Path.GetExtension(fileName).ToLower();
+
+					// 定義黑名單 (MIME Type)
+					var deniedMimeTypes = new[] {
+						"application/x-aspx",
+						"image/jpeg",
+						"image/pjpeg",
+						"application/pdf"
+					};
+					string contentType = FileUpload_FileName.ContentType.ToLower();
+
+					// 檢查是否在黑名單內
+					if (deniedExtensions.Contains(extension) || deniedMimeTypes.Contains(contentType))
+					{
+						ViewBag.Message = $"錯誤：不允許上傳 {extension} 或類型為 {contentType} 的檔案。";
+						return View();
+					}
+
+					string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+
+					string filePath = Path.Combine(uploadsFolder, fileName);
+
+					if (!Directory.Exists(uploadsFolder))
+					{
+						Directory.CreateDirectory(uploadsFolder);
+					}
+
+					using (var fileStream = new FileStream(filePath, FileMode.Create))
+					{
+						await FileUpload_FileName.CopyToAsync(fileStream);
+					}
+
+					ViewBag.Message = "檔案上傳成功";
+				}
+				else
+				{
+					ViewBag.Message = "請選擇檔案";
+				}
+			}
+			catch (Exception ex)
+			{
+				ViewBag.Message = "檔案上傳失敗：" + ex.Message;
+			}
+
+			return View();
+		}
 
 
 
